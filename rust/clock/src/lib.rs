@@ -16,16 +16,15 @@ impl Clock {
     }
 
     pub fn add_minutes(mut self, minutes: i32) -> Self {
-        let minutes = minutes % MAX_MINUTES;
-        self.minutes = (self.minutes + minutes + MAX_MINUTES) % MAX_MINUTES;
+        self.minutes = (self.minutes + minutes).rem_euclid(MAX_MINUTES);
         self
     }
 }
 
 impl fmt::Display for Clock {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        let hours = self.minutes / MINUTES;
-        let minutes = self.minutes % MINUTES;
+        let hours = self.minutes.div_euclid(MINUTES);
+        let minutes = self.minutes.rem_euclid(MINUTES);
         write!(f, "{:02}:{:02}", hours, minutes)
     }
 }
