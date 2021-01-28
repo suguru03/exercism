@@ -3,7 +3,7 @@ use std::collections::{HashMap, HashSet};
 fn to_count_map(word: &str) -> HashMap<char, i32> {
     let mut map = HashMap::new();
     for c in word.chars() {
-        map.insert(c, map.get(&c).unwrap_or(&1) + 1);
+        *map.entry(c).or_default() += 1;
     }
     map
 }
